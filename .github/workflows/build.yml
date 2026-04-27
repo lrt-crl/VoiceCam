@@ -1,8 +1,9 @@
-name: Build VoiceCam
+name: Build and Release VoiceCam
 
 on:
   push:
     branches: [ "feature/voice-cam-link", "main" ]
+    tags: [ "v*" ]
   pull_request:
     branches: [ "feature/voice-cam-link" ]
 
@@ -18,11 +19,13 @@ jobs:
         run: cd voice_cam_mobile && flutter pub get
       - name: Build APK
         run: cd voice_cam_mobile && flutter build apk --debug
-      - name: Upload APK
+      - name: Rename APK
+        run: mv voice_cam_mobile/build/app/outputs/flutter-apk/app-debug.apk voice-cam-android.apk
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: voice-cam-android-apk
-          path: voice_cam_mobile/build/app/outputs/flutter-apk/app-debug.apk
+          path: voice-cam-android.apk
 
   build-windows:
     runs-on: windows-latest
@@ -52,3 +55,26 @@ jobs:
         with:
           name: voice-cam-windows-bundle
           path: voice-cam-windows.zip
+
+  release:
+    needs: [build-android, build-windows]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: voice-cam-android-apk
+      - uses: actions/download-artifact@v4
+        with:
+          name: voice-cam-windows-bundle
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            voice-cam-android.apk
+            voice-cam-windows.zip
+          draft: false
+          prerelease: false
+          generate_release_notes: true
