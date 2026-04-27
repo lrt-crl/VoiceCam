@@ -2,10 +2,10 @@ name: Build and Release VoiceCam
 
 on:
   push:
-    branches: [ "feature/voice-cam-link", "main" ]
+    branches: [ "main" ]
     tags: [ "v*" ]
   pull_request:
-    branches: [ "feature/voice-cam-link" ]
+    branches: [ "main" ]
 
 jobs:
   build-android:
@@ -58,7 +58,7 @@ jobs:
 
   release:
     needs: [build-android, build-windows]
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -75,6 +75,8 @@ jobs:
           files: |
             voice-cam-android.apk
             voice-cam-windows.zip
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || 'latest' }}
+          name: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || 'Continuous Build' }}
           draft: false
-          prerelease: false
+          prerelease: ${{ !startsWith(github.ref, 'refs/tags/v') }}
           generate_release_notes: true
