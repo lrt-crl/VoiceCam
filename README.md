@@ -2,49 +2,42 @@
 
 VoiceCam es una solución para conectar tu móvil Android a tu PC con Windows, permitiendo compartir la cámara, el micrófono y utilizar dictado por voz (STT) que escribe directamente en el teclado de tu ordenador.
 
-## Características
+## 🚀 Instalación Rápida
 
-- **Cámara Virtual**: Usa la cámara de tu móvil como una webcam en Windows.
-- **Micrófono Virtual**: Transmite el audio del móvil al PC con baja latencia.
-- **Escritura por Voz**: Dicta al móvil y el PC escribirá el texto automáticamente usando Whisper (local).
-- **Conexión Dual**: Soporta WiFi y USB (vía ADB).
+Puedes encontrar los instaladores y el APK en la sección de **Artifacts** de la última ejecución del flujo de CI en GitHub Actions.
 
-## Requisitos Previos
+### 1. Preparación del PC (Windows)
+1.  Descarga el `voice-cam-windows-bundle.zip`.
+2.  Extrae el contenido.
+3.  Haz clic derecho sobre `install_drivers.ps1` y selecciona **"Ejecutar con PowerShell"**. Esto descargará e instalará automáticamente:
+    - **VB-CABLE**: Para el audio virtual.
+    - **UnityCapture**: Para la cámara virtual.
+4.  Reinicia el PC si es necesario.
 
-Para que el sistema funcione correctamente, debes instalar los siguientes componentes en tu PC:
+### 2. Preparación del Móvil (Android)
+1.  Descarga el `voice-cam-android-apk`.
+2.  Instálalo en tu dispositivo Android.
+3.  Asegúrate de conceder permisos de Cámara y Micrófono.
 
-1.  **Cámara Virtual**: Se recomienda [UnityCapture](https://github.com/schellingb/UnityCapture) o el driver de Media Foundation incluido.
-2.  **Audio Virtual**: Instala [VB-CABLE Virtual Audio Device](https://vb-audio.com/Cable/) para recibir el sonido del móvil como una entrada de micrófono.
-3.  **ADB (opcional)**: Si deseas usar conexión por USB, asegúrate de tener instalados los drivers de Android y habilitada la "Depuración USB" en el móvil.
+## 🛠️ Uso
 
-## Instalación y Uso
+1.  Abre `voice_cam_desktop.exe` en tu PC.
+2.  Pulsa **"Start Server"**. Verás tu dirección IP local.
+3.  Abre la app en tu móvil e introduce esa IP.
+4.  **Cámara/Micro**: Pulsa "Start Streaming".
+5.  **Dictado por Voz**: Pulsa "Voice Typist". Habla al móvil y el texto aparecerá donde tengas el cursor en el PC.
 
-### 1. Servidor de PC (Desktop)
+## 🏗️ Estructura del Proyecto
 
-1.  Navega a la carpeta `voice_cam_desktop`.
-2.  Ejecuta `flutter run -d windows` para iniciar la interfaz de control.
-3.  Asegúrate de que el backend de Rust (`voice_cam_core`) esté compilado.
-4.  Pulsa "Start Server" para comenzar a escuchar conexiones.
+- `voice_cam_mobile`: App Flutter (Android).
+- `voice_cam_desktop`: Panel de control Flutter (Windows).
+- `voice_cam_core`: Backend en Rust con integración de **Whisper** (IA para voz a texto) y **Enigo** (simulación de teclado).
+- `.github/workflows`: Flujo de integración continua para compilación automática.
 
-### 2. Aplicación Móvil (Android)
+## ⚖️ Requisitos de Desarrollo
 
-1.  Instala el APK generado en `voice_cam_mobile/build/app/outputs/flutter-apk/app-debug.apk`.
-2.  Abre la app e introduce la dirección IP que aparece en la aplicación de escritorio.
-3.  Pulsa "Start Streaming" para la cámara/micro o "Voice Typist" para el dictado.
-
-## Desarrollo
-
-### Estructura del Proyecto
-- `voice_cam_mobile`: App Flutter para Android.
-- `voice_cam_desktop`: App Flutter para Windows.
-- `voice_cam_core`: Lógica central en Rust (WebSockets, STT Whisper, Simulación de teclado).
-
-### Compilación del Core (Rust)
-```bash
-cd voice_cam_core
-cargo build --release
-```
-
-## Notas
-- El dictado por voz utiliza el modelo Whisper "tiny" para asegurar fluidez en CPUs estándar.
-- La primera vez que uses el dictado, el sistema puede tardar unos segundos en cargar el modelo de IA.
+Si deseas compilar el proyecto manualmente:
+- Flutter SDK (stable)
+- Rust Toolchain
+- Android SDK & NDK
+- Visual Studio con soporte C++ (para Windows Desktop)
