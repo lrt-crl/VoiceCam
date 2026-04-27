@@ -1,5 +1,7 @@
 # VoiceCam
 
+🌐 **[Visita la Landing Page](https://OWNER.github.io/REPO/)**
+
 VoiceCam es una solución para conectar tu móvil Android a tu PC con Windows, permitiendo compartir la cámara, el micrófono y utilizar dictado por voz (STT) que escribe directamente en el teclado de tu ordenador.
 
 ## 🚀 Instalación Rápida
