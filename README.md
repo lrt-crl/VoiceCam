@@ -6,7 +6,7 @@ VoiceCam es una solución para conectar tu móvil Android a tu PC con Windows, p
 
 ## 🚀 Instalación Rápida
 
-Puedes encontrar los instaladores y el APK en la sección de **Artifacts** de la última ejecución del flujo de CI en GitHub Actions.
+Puedes descargar los instaladores y el APK desde la sección de **[Releases](https://github.com/lrt-crl/VoiceCam/releases/latest)**.
 
 ### 1. Preparación del PC (Windows)
 1.  Descarga el `voice-cam-windows-bundle.zip`.
