@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceCam - Conecta tu Móvil al PC</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #10b981;
+            --dark: #111827;
+            --light: #f3f4f6;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.25rem; opacity: 0.9; margin-bottom: 2rem; }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        .btn-primary { background-color: var(--secondary); color: white; }
+        .btn-primary:hover { transform: scale(1.05); }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .feature-card i { font-size: 2.5rem; color: var(--primary); }
+
+        .download-section {
+            background: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div style="font-size: 1.5rem; font-weight: bold;">VoiceCam</div>
+        <nav>
+            <a href="#features" style="color: white; margin-left: 1rem; text-decoration: none;">Características</a>
+            <a href="#download" style="color: white; margin-left: 1rem; text-decoration: none;">Descargar</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Tu móvil es tu mejor periférico</h1>
+        <p>Convierte tu Android en una Webcam, Micrófono y dictador por voz inteligente para tu PC.</p>
+        <a href="#download" class="btn btn-primary">Empezar Ahora</a>
+    </section>
+
+    <section class="features" id="features">
+        <div class="feature-card">
+            <h3>🎥 Cámara HD</h3>
+            <p>Usa la cámara de tu móvil en Zoom, Teams u OBS con latencia mínima.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🎙️ Micro Pro</h3>
+            <p>Transmisión de audio nítida directamente a tu PC.</p>
+        </div>
+        <div class="feature-card">
+            <h3>✍️ Escritura por Voz</h3>
+            <p>Dicta al móvil y VoiceCam escribirá automáticamente en cualquier aplicación de tu PC usando Whisper AI.</p>
+        </div>
+    </section>
+
+    <section class="download-section" id="download">
+        <h2>Descarga VoiceCam</h2>
+        <p>Obtén la última versión compilada automáticamente por nuestro sistema.</p>
+        <div style="margin-top: 2rem;">
+            <a href="https://github.com/OWNER/REPO/actions" class="btn btn-primary" style="background-color: var(--primary);">Descargar para Windows / Android</a>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">(Requiere Windows 10/11 y Android 8+)</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 VoiceCam Project. Desarrollado con Flutter y Rust.</p>
+    </footer>
+</body>
+</html>

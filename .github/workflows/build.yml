@@ -1,0 +1,54 @@
+name: Build VoiceCam
+
+on:
+  push:
+    branches: [ "feature/voice-cam-link", "main" ]
+  pull_request:
+    branches: [ "feature/voice-cam-link" ]
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Install dependencies
+        run: cd voice_cam_mobile && flutter pub get
+      - name: Build APK
+        run: cd voice_cam_mobile && flutter build apk --debug
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: voice-cam-android-apk
+          path: voice_cam_mobile/build/app/outputs/flutter-apk/app-debug.apk
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Build Rust Core
+        run: |
+          cd voice_cam_core
+          cargo build --release
+      - name: Install Flutter dependencies
+        run: cd voice_cam_desktop && flutter pub get
+      - name: Build Windows App
+        run: cd voice_cam_desktop && flutter build windows --release
+      - name: Package Windows
+        run: |
+          mkdir dist
+          xcopy /E /I voice_cam_desktop\build\windows\runner\Release dist\app
+          copy scripts\install_drivers.ps1 dist\
+          powershell Compress-Archive -Path dist\* -DestinationPath voice-cam-windows.zip
+      - name: Upload Windows Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: voice-cam-windows-bundle
+          path: voice-cam-windows.zip
